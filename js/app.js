@@ -36,6 +36,12 @@
   const marqueeTrack = document.getElementById('marquee-track');
   const siteHeader = document.querySelector('.site-header');
 
+  // ─── Utility: responsive horizontal anchor (% of canvas width) ─
+  function getAnchorPct() {
+    const cw = window.innerWidth;
+    return cw <= 768 ? 50 : cw <= 1024 ? 40 : 32;
+  }
+
   // ─── Utility: zero-padded frame index ────────────────────────
   function frameSrc(i) {
     const n = String(i + 1).padStart(4, '0');
@@ -62,6 +68,19 @@
 
     gsap.ticker.add(time => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
+
+    // Smooth-scroll nav anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const id = anchor.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: 0, duration: 1.4 });
+        }
+      });
+    });
   }
 
   // ══════════════════════════════════════════════════════════════
@@ -96,7 +115,7 @@
       // In reduced-motion mode, load only first and last frames
       await loadImage(0);
       drawFrame(0);
-      canvasWrap.style.clipPath = 'circle(100% at 50% 50%)';
+      canvasWrap.style.clipPath = `circle(100% at ${getAnchorPct()}% 50%)`;
       hideLoader();
       allFramesReady = true;
       return;
@@ -169,7 +188,7 @@
       drawH = drawW / imgAspect;
     }
 
-    const dx = (cw - drawW) / 2;
+    const dx = (cw * getAnchorPct() / 100) - (drawW / 2);
     const dy = (ch - drawH) / 2;
 
     // Sample bg color from edges for seamless bleed (every 20 frames)
@@ -226,7 +245,7 @@
   // ══════════════════════════════════════════════════════════════
   function initHeroTransition() {
     if (reducedMotion) {
-      canvasWrap.style.clipPath = 'circle(100% at 50% 50%)';
+      canvasWrap.style.clipPath = `circle(100% at ${getAnchorPct()}% 50%)`;
       return;
     }
 
@@ -245,7 +264,7 @@
         // Canvas circle wipe from 0% scroll
         const wipeProgress = Math.min(p * 20, 1);
         const circleSize = wipeProgress * 75;
-        canvasWrap.style.clipPath = `circle(${circleSize}% at 50% 50%)`;
+        canvasWrap.style.clipPath = `circle(${circleSize}% at ${getAnchorPct()}% 50%)`;
       },
     });
   }
@@ -442,8 +461,8 @@
       end: 'bottom bottom',
       onUpdate: self => {
         const p = self.progress * 100;
-        // Trigger counters when battery section enters (53%)
-        if (p >= 53 && !countersTriggered) {
+        // Trigger counters when battery section enters (57%)
+        if (p >= 57 && !countersTriggered) {
           countersTriggered = true;
           stats.forEach(el => {
             const target = parseInt(el.dataset.target, 10);
@@ -459,7 +478,7 @@
           });
         }
         // Reset if scroll back before the section
-        if (p < 50) {
+        if (p < 54) {
           countersTriggered = false;
           stats.forEach(el => { el.textContent = '0'; });
         }
@@ -481,8 +500,8 @@
       scrub: true,
       onUpdate: self => {
         const p = self.progress * 100;
-        const SHOW_START = 45;
-        const SHOW_END = 70;
+        const SHOW_START = 49;
+        const SHOW_END = 73;
 
         let opacity = 0;
         if (p >= SHOW_START && p <= SHOW_END) {
@@ -506,8 +525,8 @@
   function initDarkOverlay() {
     if (reducedMotion) return;
 
-    const OVERLAY_ENTER = 53;
-    const OVERLAY_LEAVE = 66;
+    const OVERLAY_ENTER = 57;
+    const OVERLAY_LEAVE = 70;
     const FADE_RANGE = 2;
 
     ScrollTrigger.create({
@@ -538,7 +557,7 @@
 
     // Reduced-motion: make everything visible immediately
     if (reducedMotion) {
-      canvasWrap.style.clipPath = 'circle(100% at 50% 50%)';
+      canvasWrap.style.clipPath = `circle(100% at ${getAnchorPct()}% 50%)`;
       heroEl.style.opacity = '1';
       siteHeader.classList.add('visible');
 
@@ -566,10 +585,30 @@
     // Start preloading
     await preloadFrames();
 
+    initScrollProgress();
+
     // Refresh ScrollTrigger after layout settles
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // MODULE 10 — Scroll Progress Bar
+  // ══════════════════════════════════════════════════════════════
+  function initScrollProgress() {
+    const thumb = document.getElementById('scroll-progress-thumb');
+    if (!thumb) return;
+
+    function update() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      thumb.style.height = `${pct}%`;
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
   }
 
   // Reposition sections on resize
@@ -590,25 +629,39 @@
 })();
 
 // ══════════════════════════════════════════════════════════════
-// FAQ Accordion — close siblings when one opens
+// FAQ Accordion — button-driven, accessible, cross-browser
 // ══════════════════════════════════════════════════════════════
 (function () {
   'use strict';
 
   function initFaqAccordion() {
-    const faqLists = document.querySelectorAll('.faq-list');
-    faqLists.forEach(list => {
-      const items = list.querySelectorAll('details.faq-item');
-      items.forEach(item => {
-        item.addEventListener('toggle', () => {
-          if (item.open) {
-            items.forEach(sibling => {
-              if (sibling !== item && sibling.open) {
-                sibling.open = false;
-              }
-            });
+    const buttons = document.querySelectorAll('.faq-question');
+    buttons.forEach(btn => {
+      const answerId = btn.getAttribute('aria-controls');
+      const answer = document.getElementById(answerId);
+      if (!answer) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        // Close all siblings first
+        buttons.forEach(sibling => {
+          if (sibling !== btn) {
+            sibling.setAttribute('aria-expanded', 'false');
+            const sibAnswerId = sibling.getAttribute('aria-controls');
+            const sibAnswer = document.getElementById(sibAnswerId);
+            if (sibAnswer) sibAnswer.hidden = true;
           }
         });
+
+        // Toggle this one
+        if (isOpen) {
+          btn.setAttribute('aria-expanded', 'false');
+          answer.hidden = true;
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          answer.hidden = false;
+        }
       });
     });
   }

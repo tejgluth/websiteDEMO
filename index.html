@@ -18,6 +18,11 @@
   <!-- Skip to content -->
   <a href="#main-content" class="skip-link">Skip to content</a>
 
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress-thumb" id="scroll-progress-thumb"></div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════ LOADER -->
   <div id="loader" aria-label="Loading Velocity One ANC" role="status">
     <div class="loader-brand">VELOCITY</div>
@@ -30,7 +35,7 @@
   <!-- ═══════════════════════════════════════════════ HEADER -->
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="#" class="header-wordmark" aria-label="Velocity home">VELOCITY</a>
+      <a href="index.html" class="header-wordmark" aria-label="Velocity home">VELOCITY</a>
       <nav class="header-nav" aria-label="Primary navigation">
         <a href="#sound" class="nav-link">Sound</a>
         <a href="#anc" class="nav-link">ANC</a>
@@ -76,8 +81,8 @@
 
       <!-- §1 — OVERVIEW -->
       <section
-        class="scroll-section align-left"
-        data-enter="5" data-leave="18"
+        class="scroll-section align-right"
+        data-enter="4" data-leave="19"
         data-animation="slide-left"
         id="overview"
         aria-labelledby="overview-heading">
@@ -92,7 +97,7 @@
       <!-- §2 — SOUND QUALITY -->
       <section
         class="scroll-section align-right"
-        data-enter="18" data-leave="30"
+        data-enter="19" data-leave="32"
         data-animation="fade-up"
         id="sound"
         aria-labelledby="sound-heading">
@@ -124,7 +129,7 @@
       <!-- §3 — ANC -->
       <section
         class="scroll-section align-right"
-        data-enter="30" data-leave="42"
+        data-enter="32" data-leave="45"
         data-animation="slide-right"
         id="anc"
         aria-labelledby="anc-heading">
@@ -151,8 +156,8 @@
 
       <!-- §4 — MATERIALS & COMFORT -->
       <section
-        class="scroll-section align-left"
-        data-enter="42" data-leave="53"
+        class="scroll-section align-right"
+        data-enter="45" data-leave="57"
         data-animation="rotate-in"
         id="comfort"
         aria-labelledby="comfort-heading">
@@ -172,7 +177,7 @@
       <!-- §5 — BATTERY / CONNECTIVITY (STATS) -->
       <section
         class="scroll-section align-center"
-        data-enter="53" data-leave="66"
+        data-enter="57" data-leave="70"
         data-animation="stagger-up"
         id="battery"
         aria-labelledby="battery-heading">
@@ -216,8 +221,8 @@
 
       <!-- §6 — TECHNICAL DESIGN -->
       <section
-        class="scroll-section align-left"
-        data-enter="66" data-leave="76"
+        class="scroll-section align-right"
+        data-enter="70" data-leave="80"
         data-animation="clip-reveal"
         id="tech"
         aria-labelledby="tech-heading">
@@ -232,7 +237,7 @@
       <!-- §7 — SPECS -->
       <section
         class="scroll-section align-right"
-        data-enter="76" data-leave="83"
+        data-enter="80" data-leave="87"
         data-animation="scale-up"
         id="specs"
         aria-labelledby="specs-heading">
@@ -264,8 +269,8 @@
 
       <!-- §8 — REVIEWS -->
       <section
-        class="scroll-section align-left"
-        data-enter="83" data-leave="89"
+        class="scroll-section align-right"
+        data-enter="87" data-leave="93"
         data-animation="slide-left"
         id="reviews"
         aria-labelledby="reviews-heading">
@@ -292,55 +297,10 @@
         </div>
       </section>
 
-      <!-- §9 — FAQ -->
-      <section
-        class="scroll-section align-center"
-        data-enter="89" data-leave="94"
-        data-animation="fade-up"
-        id="faq"
-        aria-labelledby="faq-heading">
-        <div class="section-inner">
-          <p class="section-label">Questions</p>
-          <h2 class="section-heading" id="faq-heading">Common Questions.</h2>
-          <div class="faq-list">
-            <details class="faq-item">
-              <summary class="faq-question">Does the Velocity One ANC work wired?</summary>
-              <div class="faq-answer">
-                <p>Yes. The Velocity One ANC includes a 1.2m braided 3.5mm audio cable. Wired mode bypasses Bluetooth entirely for under 2ms latency — ideal for studio monitoring, critical listening, and in-flight use.</p>
-              </div>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">What's included in the box?</summary>
-              <div class="faq-answer">
-                <p>Velocity One ANC headphone, USB-C charging cable (1.8m), 3.5mm audio cable (1.2m), premium hard-shell carry case, airline adapter, and documentation.</p>
-              </div>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">Is there a companion app?</summary>
-              <div class="faq-answer">
-                <p>Yes, available for iOS and Android. Adjust ANC depth, transparency level, EQ presets, rename device connections, set wear detection behavior, and manage firmware updates.</p>
-              </div>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">What's the warranty?</summary>
-              <div class="faq-answer">
-                <p>2-year limited warranty covering manufacturing defects. Velocity also offers an optional 3-year extended coverage plan, available at checkout or through the companion app.</p>
-              </div>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">When does my order ship?</summary>
-              <div class="faq-answer">
-                <p>In-stock orders ship within 1 business day. Standard delivery is 3–5 business days; express is next-day. Free shipping on all orders.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </section>
-
       <!-- §10 — FINAL CTA -->
       <section
         class="scroll-section align-center cta-section"
-        data-enter="94" data-leave="100"
+        data-enter="93" data-leave="100"
         data-animation="scale-up"
         data-persist="true"
         id="cta"
@@ -352,24 +312,25 @@
           <p class="cta-sub">Free shipping. 30-day returns. 2-year warranty.</p>
           <div class="cta-buttons">
             <a href="order.html" class="cta-button primary">Order Now — $399</a>
+            <a href="support/help-center.html" class="cta-button secondary">Help &amp; Support</a>
           </div>
           <div class="trust-row">
-            <div class="trust-item">
+            <a href="support/shipping-returns.html" class="trust-item">
               <span class="trust-icon">→</span>
               <span>Free Shipping</span>
-            </div>
-            <div class="trust-item">
+            </a>
+            <a href="support/shipping-returns.html" class="trust-item">
               <span class="trust-icon">↩</span>
               <span>30-Day Returns</span>
-            </div>
-            <div class="trust-item">
+            </a>
+            <a href="support/warranty.html" class="trust-item">
               <span class="trust-icon">◎</span>
               <span>2-Year Warranty</span>
-            </div>
-            <div class="trust-item">
+            </a>
+            <a href="order.html" class="trust-item">
               <span class="trust-icon">⬡</span>
               <span>Secure Checkout</span>
-            </div>
+            </a>
           </div>
         </div>
       </section>
