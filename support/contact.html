@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Support — Velocity Audio</title>
+  <meta name="description" content="Contact Velocity Audio support. Mon–Fri 9am–6pm PT. Response within 1 business day." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/pages.css" />
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-block {
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .info-block-label {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .info-block-value {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .info-block-value strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html#main-content" class="skip-link">Skip to content</a>
+
+  <header class="page-header" role="banner">
+    <div class="page-header-inner">
+      <a href="../index.html" class="page-wordmark" aria-label="Velocity home">VELOCITY</a>
+      <nav class="page-header-nav" aria-label="Navigation">
+        <a href="../index.html" class="page-nav-link back">← Back</a>
+        <a href="../order.html" class="page-header-cta">Order Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-content-wide" style="max-width: 1000px;">
+
+      <div class="page-hero">
+        <span class="page-label">Support</span>
+        <h1 class="page-title">Contact Us</h1>
+        <p class="page-subtitle">Our support team is here to help. Fill out the form and we'll get back to you within 1 business day.</p>
+      </div>
+
+      <div class="contact-layout">
+
+        <!-- Form -->
+        <div>
+          <form id="contact-form" novalidate aria-label="Contact support form">
+            <div class="form-field">
+              <label class="form-label" for="name">Full Name</label>
+              <input class="form-input" type="text" id="name" name="name" placeholder="Your full name" required autocomplete="name" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="email">Email Address</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="order">Order Number <span style="font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-muted);">(optional)</span></label>
+              <input class="form-input" type="text" id="order" name="order" placeholder="e.g. V-123456" autocomplete="off" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="subject">Subject</label>
+              <select class="form-select" id="subject" name="subject" required>
+                <option value="" disabled selected>Select a topic…</option>
+                <option value="order-status">Order Status / Tracking</option>
+                <option value="returns">Returns &amp; Refunds</option>
+                <option value="warranty">Warranty Claim</option>
+                <option value="technical">Technical Support</option>
+                <option value="app">Companion App</option>
+                <option value="feedback">Product Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Describe your issue or question in as much detail as possible…" required rows="5"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; text-align: center; padding: 1rem;">Send Message</button>
+          </form>
+
+          <div class="inline-message success" id="success-message" role="status" aria-live="polite">
+            <strong>Message received.</strong> Thank you for reaching out. Our support team will respond to your inquiry within 1 business day. Check your inbox — we'll reply to the email address you provided.
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="contact-sidebar">
+          <div class="info-block">
+            <span class="info-block-label">Support Hours</span>
+            <p class="info-block-value"><strong>Mon–Fri</strong><br>9:00 AM – 6:00 PM PT</p>
+          </div>
+
+          <div class="info-block">
+            <span class="info-block-label">Response Time</span>
+            <p class="info-block-value">Within <strong>1 business day</strong> for all inquiries submitted via this form.</p>
+          </div>
+
+          <div class="info-block">
+            <span class="info-block-label">Warranty Claims</span>
+            <p class="info-block-value">For warranty issues, email <a href="mailto:warranty@velocityaudio.com" style="color: var(--accent);">warranty@velocityaudio.com</a> directly for faster routing.</p>
+          </div>
+
+          <div class="info-block">
+            <span class="info-block-label">Before You Write</span>
+            <p class="info-block-value">Check our <a href="help-center.html" style="color: var(--accent);">Help Center</a> — many common questions are answered there instantly.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer" role="contentinfo">
+    <div class="page-footer-inner">
+      <div class="footer-brand">
+        <span class="footer-wordmark">VELOCITY</span>
+        <p class="footer-tagline">Precision audio. Engineered for everyday.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-col">
+          <p class="footer-col-heading">Support</p>
+          <a href="help-center.html" class="footer-link">Help Center</a>
+          <a href="shipping-returns.html" class="footer-link">Shipping &amp; Returns</a>
+          <a href="warranty.html" class="footer-link">Warranty</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-heading">Company</p>
+          <a href="../company/about.html" class="footer-link">About Velocity</a>
+          <a href="../company/press.html" class="footer-link">Press</a>
+          <a href="../company/careers.html" class="footer-link">Careers</a>
+          <a href="../company/investors.html" class="footer-link">Investors</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-heading">Legal</p>
+          <a href="../legal/privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="../legal/terms.html" class="footer-link">Terms of Service</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Velocity Audio, Inc. Designed in La Jolla, CA.</p>
+      <p>Velocity One ANC &nbsp;·&nbsp; $399</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('success-message');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Basic validation
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+          return;
+        }
+
+        // Simulate submission
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        setTimeout(() => {
+          form.style.display = 'none';
+          success.classList.add('visible');
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 800);
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order — Velocity One ANC</title>
+  <meta name="description" content="Order the Velocity One ANC. $399. Free shipping, 30-day returns, 2-year warranty." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    /* Order page specific styles */
+    .order-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .order-product {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .product-swatch {
+      width: 72px;
+      height: 72px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-swatch-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #2e2e2e, #0d0d0d);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .product-variant {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .product-price-main {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-bright);
+    }
+
+    .quantity-row {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .quantity-label {
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+    }
+
+    .qty-btn {
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease, background 0.15s ease;
+      font-family: var(--font-display);
+    }
+
+    .qty-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .qty-display {
+      width: 40px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 0.5rem 0;
+    }
+
+    /* Order Summary */
+    .order-summary {
+      position: sticky;
+      top: 88px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .summary-title {
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      display: block;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 0.6rem 0;
+    }
+
+    .summary-row + .summary-row {
+      border-top: 1px solid var(--border);
+    }
+
+    .summary-total {
+      border-top: 1px solid rgba(255,255,255,0.15) !important;
+      padding-top: 1rem !important;
+      margin-top: 0.5rem;
+    }
+
+    .summary-total .label {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      text-transform: uppercase;
+    }
+
+    .summary-total .amount {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-bright);
+    }
+
+    .free-badge {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .place-order-btn {
+      width: 100%;
+      margin-top: 1.75rem;
+      padding: 1rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .place-order-btn:hover {
+      background: var(--accent-bright);
+    }
+
+    .order-note {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Confirmation */
+    .order-confirmation {
+      display: none;
+      padding: 2rem;
+      border: 1px solid rgba(200,191,176,0.25);
+      background: rgba(200,191,176,0.03);
+      margin-top: 1.5rem;
+    }
+
+    .order-confirmation.visible {
+      display: block;
+    }
+
+    .confirmation-heading {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .confirmation-body {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 900px) {
+      .order-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- Header -->
+  <header class="page-header" role="banner">
+    <div class="page-header-inner">
+      <a href="index.html" class="page-wordmark" aria-label="Velocity home">VELOCITY</a>
+      <nav class="page-header-nav" aria-label="Navigation">
+        <a href="index.html" class="page-nav-link back">← Back</a>
+        <a href="order.html" class="page-header-cta">Order Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="main-content">
+    <div class="page-content-wide">
+
+      <!-- Page Hero -->
+      <div class="page-hero">
+        <span class="page-label">Purchase</span>
+        <h1 class="page-title">Velocity One ANC</h1>
+        <p class="page-subtitle">The most technically accomplished headphone under $500. Custom 40mm planar-hybrid drivers, adaptive noise cancellation, and 40-hour battery life — in a single refined package.</p>
+      </div>
+
+      <!-- Trust Row -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <span class="trust-icon">→</span>
+          <span>Free Shipping on all orders</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">↩</span>
+          <span>30-Day Returns</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">◎</span>
+          <span>2-Year Warranty</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">⬡</span>
+          <span>Secure Checkout</span>
+        </div>
+      </div>
+
+      <!-- Order Layout -->
+      <div class="order-layout">
+
+        <!-- Left: Product Selection -->
+        <div class="order-form">
+          <div class="order-product">
+            <div class="product-swatch" aria-hidden="true">
+              <div class="product-swatch-dot"></div>
+            </div>
+            <div class="product-info">
+              <p class="product-name">Velocity One ANC</p>
+              <p class="product-variant">Obsidian Black — Over-Ear Wireless</p>
+              <p class="product-price-main">$399</p>
+              <div class="quantity-row">
+                <span class="quantity-label">Qty</span>
+                <div class="quantity-control" role="group" aria-label="Quantity">
+                  <button class="qty-btn" id="qty-dec" aria-label="Decrease quantity">−</button>
+                  <span class="qty-display" id="qty-display" aria-live="polite">1</span>
+                  <button class="qty-btn" id="qty-inc" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-section">
+            <span class="section-eyebrow">In the Box</span>
+            <div class="card">
+              <p class="card-body">Velocity One ANC headphone &nbsp;·&nbsp; USB-C charging cable (1.8m) &nbsp;·&nbsp; 3.5mm audio cable (1.2m) &nbsp;·&nbsp; Premium hard-shell carry case &nbsp;·&nbsp; Airline adapter &nbsp;·&nbsp; Documentation</p>
+            </div>
+          </div>
+
+          <div class="page-section">
+            <span class="section-eyebrow">Key Specifications</span>
+            <table class="kv-table">
+              <tbody>
+                <tr><td>Driver</td><td>40mm planar-hybrid</td></tr>
+                <tr><td>ANC</td><td>Adaptive, up to 32dB attenuation</td></tr>
+                <tr><td>Battery</td><td>40 hrs (ANC off) / 28 hrs (ANC on)</td></tr>
+                <tr><td>Fast charge</td><td>8 min → 4 hours playback</td></tr>
+                <tr><td>Bluetooth</td><td>5.4 + LDAC + Multipoint (4 devices)</td></tr>
+                <tr><td>Weight</td><td>287g</td></tr>
+                <tr><td>Warranty</td><td>2 years limited</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right: Order Summary -->
+        <div class="order-summary" role="complementary" aria-label="Order summary">
+          <span class="summary-title">Order Summary</span>
+
+          <div class="summary-row">
+            <span class="label">Velocity One ANC &times; <span id="summary-qty">1</span></span>
+            <span id="summary-subtotal">$399</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Shipping</span>
+            <span class="free-badge">FREE</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span class="label">Total</span>
+            <span class="amount" id="summary-total">$399</span>
+          </div>
+
+          <button class="place-order-btn" id="place-order-btn" type="button">Place Order</button>
+          <p class="order-note">Encrypted checkout. No card stored. Ships within 1 business day.</p>
+
+          <div class="order-confirmation" id="order-confirmation" role="status" aria-live="polite">
+            <p class="confirmation-heading">Order received.</p>
+            <p class="confirmation-body">Thank you for your order. A confirmation has been sent to your email. Estimated delivery: 3–5 business days. Order #V-<span id="order-number"></span></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer" role="contentinfo">
+    <div class="page-footer-inner">
+      <div class="footer-brand">
+        <span class="footer-wordmark">VELOCITY</span>
+        <p class="footer-tagline">Precision audio. Engineered for everyday.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-col">
+          <p class="footer-col-heading">Support</p>
+          <a href="support/help-center.html" class="footer-link">Help Center</a>
+          <a href="support/shipping-returns.html" class="footer-link">Shipping &amp; Returns</a>
+          <a href="support/warranty.html" class="footer-link">Warranty</a>
+          <a href="support/contact.html" class="footer-link">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-heading">Company</p>
+          <a href="company/about.html" class="footer-link">About Velocity</a>
+          <a href="company/press.html" class="footer-link">Press</a>
+          <a href="company/careers.html" class="footer-link">Careers</a>
+          <a href="company/investors.html" class="footer-link">Investors</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-heading">Legal</p>
+          <a href="legal/privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="legal/terms.html" class="footer-link">Terms of Service</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Velocity Audio, Inc. Designed in La Jolla, CA.</p>
+      <p>Velocity One ANC &nbsp;·&nbsp; $399</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const UNIT_PRICE = 399;
+      let qty = 1;
+
+      const qtyDisplay = document.getElementById('qty-display');
+      const summaryQty = document.getElementById('summary-qty');
+      const summarySubtotal = document.getElementById('summary-subtotal');
+      const summaryTotal = document.getElementById('summary-total');
+      const decBtn = document.getElementById('qty-dec');
+      const incBtn = document.getElementById('qty-inc');
+      const placeBtn = document.getElementById('place-order-btn');
+      const confirmation = document.getElementById('order-confirmation');
+      const orderNumber = document.getElementById('order-number');
+
+      function updateDisplay() {
+        const total = qty * UNIT_PRICE;
+        qtyDisplay.textContent = qty;
+        summaryQty.textContent = qty;
+        summarySubtotal.textContent = '$' + total.toLocaleString();
+        summaryTotal.textContent = '$' + total.toLocaleString();
+        decBtn.disabled = qty <= 1;
+      }
+
+      decBtn.addEventListener('click', () => {
+        if (qty > 1) { qty--; updateDisplay(); }
+      });
+
+      incBtn.addEventListener('click', () => {
+        if (qty < 5) { qty++; updateDisplay(); }
+      });
+
+      placeBtn.addEventListener('click', () => {
+        // Generate a random order number
+        const num = 'V-' + Math.floor(100000 + Math.random() * 900000);
+        orderNumber.textContent = num.replace('V-', '');
+        placeBtn.disabled = true;
+        placeBtn.textContent = 'Order Placed';
+        placeBtn.style.background = 'rgba(200,191,176,0.3)';
+        placeBtn.style.color = 'var(--accent)';
+        confirmation.classList.add('visible');
+        confirmation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      updateDisplay();
+    })();
+  </script>
+
+</body>
+</html>
